@@ -1,0 +1,99 @@
+
+<nav class="navbar navbar-expand-lg navbar-light ">
+    
+    <div class=" collapse navbar-collapse container-fluid ">
+        <div>
+        <h4 >Employee Info</h4>
+          
+        </div>
+        
+      <ul class="navbar-nav float-end">
+        <!-- Avatar -->
+        <li mdbDropdown class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle d-flex align-items-center"
+            href="javascript:void(0)"
+
+
+            id="navbarDropdownMenuLink"
+            role="button"
+            mdbDropdownToggle
+            aria-expanded="false"
+          >
+            <img
+              src="https://mdbootstrap.com/img/Photos/Avatars/img (31).webp"
+              class="rounded-circle"
+              height="22"
+              alt=""
+              loading="lazy"
+            />
+          </a>
+          <ul mdbDropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li>
+              <a class="dropdown-item" (click)="onLogout()">Logout</a>
+            </li>
+        
+          </ul>
+        </li>
+      </ul>
+    </div>
+    
+  </nav>
+
+
+<div>
+	<div class="col-xs-3 col-sm-auto text-center mt-4">
+    
+        <button class="btn btn-primary "  (click)="addEmployee()">Add Employee</button>
+
+    </div>	
+	
+	
+
+<table class="table align-middle mb-0 bg-white mt-5">
+	<thead class="bg-light">
+	  <tr>
+		<th>Name</th>
+		<th>Title</th>
+		<th>Job Level</th>
+		<th>Contact</th>
+		<th>Work Location</th>
+		<th>Actions</th>
+	  </tr>
+	</thead>
+	<tbody *ngFor="let item of datas">
+	  <tr>
+		<td>
+		  <div class="d-flex align-items-center">
+			<img
+				[src]="item.image"
+				alt=""
+				style="width: 45px; height: 45px"
+				class="rounded-circle"
+				/>
+			<div class="ms-3">
+			  <p class="fw-bold mb-1">{{item.firstName}}&nbsp;{{item.lastName}}</p>
+			  <p class="text-muted mb-0">{{item.email}}</p>
+			</div>
+		  </div>
+		</td>
+		<td>
+		  <p class="fw-normal mb-1">{{item.dest}}</p>
+		  <p class="text-muted mb-0">{{item.depart}}</p>
+		</td>
+		<td>
+			<p class="fw-normal mb-1">{{item.pos}}</p>
+		  </td>
+		<td>
+			<p class="fw-normal mb-1">{{item.mNo}}</p>
+
+		</td>
+		<td>{{item.place}}</td>
+		<td>
+			<button type="submit" class="btn btn-primary" (click)="updateData(item)">Edit</button>&nbsp;
+			<button type="button" class="btn btn-warning" (click)="delete(item)">Delete</button>
+		</td>
+	  </tr>
+	
+	</tbody>
+  </table>

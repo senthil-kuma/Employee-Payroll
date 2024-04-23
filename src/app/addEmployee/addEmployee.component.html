@@ -1,0 +1,127 @@
+<div *ngIf="isLoading" class="lds-ripples">
+  <app-loading-spinner ></app-loading-spinner>
+</div>
+
+
+<form #f='ngForm' (ngSubmit)="createPost(f)" *ngIf="!isLoading">
+
+  <div class="modal-header">
+    
+    <h5 class="modal-title" id="exampleModalLabel">Enter the Employee Details</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modalRef.close()"></button>
+  </div>
+  <div class="modal-body">
+   
+        <div class="container ">
+
+          <div class="d-flex justify-content-center"  *ngIf="error">
+          <span  class="alert alert-danger p-1 " >
+            <!-- {{error? error: error1}} -->
+            {{error}}
+
+          </span>
+        </div>
+      <div class="row">
+        <div class="col">
+          <mdb-form-control>
+            <input mdbInput type="text" id="firstName" class="form-control" name="firstName" 
+             #firstName="ngModel"  ngModel
+             [ngClass]="{'is-invalid' : firstName.touched && firstName.invalid}">
+            <label mdbLabel class="form-label" for="firstName">First Name</label>
+          </mdb-form-control>
+          <mdb-form-control>
+            <input mdbInput type="email" class="form-control mt-3" name="email" id="email" ngModel #email='ngModel' 
+              pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" required
+              [ngClass]="{'is-invalid' : email.touched && email.invalid}">
+            <label mdbLabel class="form-label" for="email">Email</label>
+            <div *ngIf="email.errors?.required">
+              <mdb-error  *ngIf='email.touched && email.invalid'>Please enter Valid email</mdb-error>
+            </div>
+            <div *ngIf="email.errors?.pattern">
+              <mdb-error  *ngIf='email.touched && email.invalid'>Invalid email address</mdb-error>
+  
+            </div>
+          </mdb-form-control>
+          <mdb-form-control>
+            <input mdbInput  type="text" class="form-control mt-4" name="dest"id="dest" ngModel #dest='ngModel'
+                        required [ngClass]="{'is-invalid' : dest.touched && dest.invalid}">
+                      <label mdbLabel class="form-label" for="dest">Designation</label>
+                        <mdb-error *ngIf='dest.touched && dest.invalid && dest.errors?.required' >Please enter Designation</mdb-error>         
+          </mdb-form-control>
+         
+<mdb-form-control>
+  <input mdbInput  type="number" class="form-control mt-4" name="mNo"ngModel #mno='ngModel'
+              required [ngClass]="{'is-invalid' : mno.touched && mno.invalid}">
+            <label mdbLabel class="form-label" >Phone Number</label>
+              <mdb-error *ngIf='mno.touched && mno.invalid && mno.errors?.required' >Contact must be
+                required</mdb-error>         
+</mdb-form-control>
+<mdb-form-control>
+  <input mdbInput  type="text" class="form-control mt-4" name="place"ngModel #place='ngModel'
+              required [ngClass]="{'is-invalid' : place.touched && place.invalid}">
+            <label mdbLabel class="form-label" >Work Place</label>
+              <mdb-error *ngIf='place.touched && place.invalid && place.errors?.required' >WorkPl                                                                                                                                                                                             ance must be        
+                required</mdb-error>         
+</mdb-form-control>
+<mdb-form-control>
+  <input mdbInput  type="text" class="form-control mt-4" name="depart"ngModel #depart='ngModel'
+              required [ngClass]="{'is-invalid' : depart.touched && depart.invalid}">
+            <label mdbLabel class="form-label" >Department</label>
+              <mdb-error *ngIf='depart.touched && depart.invalid && depart.errors?.required' >Please enter the Department</mdb-error>         
+</mdb-form-control>
+
+        </div>
+        <div class="col">
+          <mdb-form-control>
+            <input mdbInput type="text" id="lastName" class="form-control " name="lastName" 
+            #lastName='ngModel' ngModel
+              [ngClass]="{'is-invalid' : lastName.touched && lastName.invalid}"
+              >
+            <label mdbLabel class="form-label" for="lastName">Last Name</label>
+          </mdb-form-control>
+          
+          <mdb-form-control>
+            <input mdbInput type="password" class="form-control mt-3" name="pass" id="pass" ngModel #password='ngModel'
+              required [ngClass]="{'is-invalid' : password.touched && password.invalid}" minlength="6" maxlength="8">
+            <label mdbLabel class="form-label" for="pass">Password</label>
+            <div *ngIf="password.errors?.required">
+              <mdb-error *ngIf='password.touched && password.invalid'>Password must be
+                required</mdb-error>
+            </div>
+            <mdb-error *ngIf="password.errors?.minlength">
+              <small>Password must be 6 to 8 characters</small>
+  
+            </mdb-error>
+          </mdb-form-control>
+        
+          <mdb-form-control>
+            <input mdbInput  type="text" class="form-control mt-4" name="pos"id="pos" ngModel #pos='ngModel'
+                        required [ngClass]="{'is-invalid' : pos.touched && pos.invalid}">
+                      <label mdbLabel class="form-label" for="dest">Position</label>
+                        <mdb-error *ngIf='pos.touched && pos.invalid && pos.errors?.required' >Please enter position</mdb-error>         
+          </mdb-form-control>
+          <mdb-form-control>
+  
+            <input mdbInput  type="file" class="form-control mt-4" (change)="onSelectFile($event)" name="img"ngModel #img='ngModel' >
+          </mdb-form-control>
+          <img [src]="url" height="100" width="100" class="mt-3"> <br/>
+
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modalRef.close()">
+      Close
+    </button>
+    <button [disabled]="f.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+  </div>
+
+</form>
+<!--  -->
