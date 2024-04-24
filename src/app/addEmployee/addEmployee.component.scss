@@ -6,3 +6,15 @@
     top: 210px;
 
 }
+
+/* Hide the default arrows */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Optional: Improve styling for Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}

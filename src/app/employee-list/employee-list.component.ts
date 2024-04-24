@@ -71,6 +71,8 @@ private service1:LoginService  ) {}
     
     this.unsubscribe=this.service.getList('employees').subscribe((res) => {
       this.datas = res;
+      
+      this.datas = this.datas.filter(del => del.role !== "admin");
       console.log(this.datas);
     })
     ;
@@ -84,4 +86,5 @@ private service1:LoginService  ) {}
       console.log(err)
     }})
   }
+  
 }

@@ -7,6 +7,10 @@ import {
   deleteDoc,
   doc,
   Firestore,
+  setDoc,
+  getDoc,
+  getFirestore,
+  docData
 } from '@angular/fire/firestore';
 import { Observable, throwError } from 'rxjs';
 
@@ -18,6 +22,11 @@ export class EmployeeService {
 
   constructor(public http: HttpClient, private firestore: Firestore) {}
  
+
+  get(path){
+    let dataRef = doc(this.firestore, path);
+    return docData(dataRef);
+  }
 
   getList(path) {
     let dataRef = collection(this.firestore, path);
@@ -32,5 +41,17 @@ export class EmployeeService {
   add(path, data) {
     let dataRef = collection(this.firestore, path);
     return addDoc(dataRef, data);
+  }
+
+  set(path, data) {
+    let dataRef = doc(this.firestore,path);
+    return setDoc(dataRef, data);
+  }
+
+
+  getDocumentById(id){
+   let  db= getFirestore();
+  let docRef=  doc(db,'employees',id);
+   return getDoc(docRef) ;
   }
 }

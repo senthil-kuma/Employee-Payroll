@@ -3,6 +3,8 @@ import { NgForm } from '@angular/forms';
 import { LoginService } from './login.service';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
+import { EmployeeService } from '../Service/employee.service';
+
 
 @Component({
   selector: 'app-login',
@@ -13,11 +15,11 @@ export class LoginComponent {
   isloading = false;
   error: string = '';
 
-  constructor(private logService: LoginService, private router: Router) {
+  constructor(private logService: LoginService, private router: Router,private service:EmployeeService) {
 
   }
-
   onSubmit(form: NgForm) {
+  
     this.error = '';
     this.isloading = true;
     const email = form.value.email;
@@ -36,17 +38,30 @@ export class LoginComponent {
             empem: resData.email,
             empid: resData.reloadUserInfo.localId,
           };
-          localStorage.setItem('employee', JSON.stringify(empData));
-          if (empData.empid == 'Y64FBpy0LAeGHp5z6NRXVj3Dunz1') {
-            this.router.navigate(['employee-list']);
-          } else {
-            this.router.navigate(['employee']);
-          }
+          this.service.getDocumentById(empData.empid).then((res)=>{
+                  let data:any= res.data()
+                  
+                  if (data.role === 'admin') {
+                    this.logService.loggedInRole = 'admin';
+                    this.router.navigate(['employee-list']);
+                  } else {
+                    this.logService.loggedInRole = 'employee';
+
+                    this.router.navigate(['employee']);
+                  }
+                  console.log(data.role)
+          })
+          // localStorage.setItem('employee', JSON.stringify(empData));
+          this.logService.loggedInUserId = empData.empid;
+          console.log(empData.empid)
+          
 
         },
-        error: (message) => {
-          this.error = message;
-          console.log(message);
+        error: (err) => {
+          if(err.message== 'Firebase: Error (auth/invalid-credential).'){
+            this.error = 'Invalid login credentials'
+          }
+          console.log(this.error);
         },
       });
   }

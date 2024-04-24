@@ -14,20 +14,41 @@ import { AddEmployeeComponent } from "../addEmployee/addEmployee.component";
 
   export class EmployeeComponent implements OnInit{
     modalRef: MdbModalRef<AddEmployeeComponent> | null = null;
+    datas:any={};
 
     constructor(private service:EmployeeService,private modalService: MdbModalService,private router:Router,
-      private service1:LoginService){}
-    datas:any=[];
+      private service1:LoginService){
+        // this.userSub=this.service1.loggedInUserDetails.subscribe((data)=>{
+        //   console.log(data)
+        //   this.datas= data;
+        // })
+        let id = this.service1.loggedInUserId;
+        console.log(id)
+
+      //  this.userSub = this.service.get('employees/'+id).subscribe((empData)=>{
+      //     console.log(empData)
+      //          this.datas=empData;
+      //          console.log(this.datas)
+      //    })
+
+      this.service.getDocumentById(id).then((empData)=>{
+              this.datas=empData.data();
+              console.log(this.datas)
+   
+      })
+       }
 unsub:Subscription
+userSub:Subscription
     ngOnInit(){
-      this.getData()
+      // this.getData();
+
+      
     }
 
     ngOnDestroy(): void {
    
-      if(this.unsub){
-        this.unsub.unsubscribe();
-      }
+      if(this.unsub) this.unsub.unsubscribe();
+      if(this.userSub) this.userSub.unsubscribe();
       
     }
 

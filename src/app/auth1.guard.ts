@@ -11,8 +11,9 @@ export class AdminGuard {
 
   canActivate(): boolean {
     let userState= JSON.parse(localStorage.getItem('userState'))
-    let user = JSON.parse(localStorage.getItem('employee'))
-    let admin = user && user.empid == 'Y64FBpy0LAeGHp5z6NRXVj3Dunz1' ? true : false;
+    let roles= this.serve.loggedInRole;
+    console.log(roles)
+    let admin = roles  == 'admin' ? true : false;
     console.log(userState)
      console.log(admin)
      console.log(userState && admin)
@@ -22,16 +23,5 @@ export class AdminGuard {
   }
 }
 
-// export class Auth3{
-//   canActivate(): boolean {
-//     let emp= JSON.parse(localStorage.getItem('employee'))
-//     console.log(emp)
-//     if (emp.empid == 'Y64FBpy0LAeGHp5z6NRXVj3Dunz1') {
-//       return false
-//     } else {
-//       return true
-//     }
-//  }
-// }
 
 

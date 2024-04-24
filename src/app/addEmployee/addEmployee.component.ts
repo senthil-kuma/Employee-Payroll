@@ -45,7 +45,8 @@ export class AddEmployeeComponent implements AfterViewInit {
           dest: this.items.dest,
           place: this.items.place,
           pos:this.items.pos,
-          img:''
+         role:this.items.role,
+        img:''
         });
 
         this.url=this.items.image;
@@ -65,6 +66,7 @@ export class AddEmployeeComponent implements AfterViewInit {
         .then(() => {
           console.log('data updated');
           this.modalRef.close();
+        
         })
         .catch((err) => {
           console.log(err);
@@ -83,19 +85,19 @@ export class AddEmployeeComponent implements AfterViewInit {
           console.log(userCredential);
           console.log(formdata);
 
-          formdata['tokenId'] = user.idToken;
-          this.eService
-            .add('employees', formdata)
-            .then(() => {
-              console.log('Data has been saved successfully');
+          let id =userCredential.user.uid;
+          formdata["id"]=id;
 
-              this.modalRef.close();
-              f.reset();
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-          // ...
+          this.eService.set(`employees/${id}`, formdata).then(() => {
+            console.log('Data has been saved successfully');
+           
+            this.modalRef.close();
+            f.reset();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+            
         })
         .catch((error) => {
           const errorCode = error.code;

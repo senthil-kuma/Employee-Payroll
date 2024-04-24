@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {  Observable, catchError, throwError } from 'rxjs';
-import { Auth,onAuthStateChanged,signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
+import {  Observable, Subject, catchError, throwError } from 'rxjs';
+import { Auth,signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
 
 
 
@@ -19,6 +19,8 @@ export interface LoginResponseData {
 
 @Injectable({providedIn:'root'})
 export class LoginService {
+  loggedInRole:string='';
+  loggedInUserId:string = '';
   constructor(private http: HttpClient, private auth: Auth) {}
 
   login(email:string,password:string){
@@ -28,6 +30,7 @@ signInWithEmailAndPassword(this.auth, email, password)
     // Signed in 
     const user = userCredential.user;
     observable.next(user)
+    
     // ...
   })
   .catch((error) => {
@@ -38,7 +41,7 @@ signInWithEmailAndPassword(this.auth, email, password)
 
   
 
-  private handleError(errorRes:HttpErrorResponse){
+  public handleError(errorRes:HttpErrorResponse){
 
     let errorMessage="An unknown error occured";
     if(!errorRes.error || !errorRes.error.error){
