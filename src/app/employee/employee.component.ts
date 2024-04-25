@@ -40,7 +40,6 @@ import { AddEmployeeComponent } from "../addEmployee/addEmployee.component";
 unsub:Subscription
 userSub:Subscription
     ngOnInit(){
-      // this.getData();
 
       
     }
@@ -53,15 +52,7 @@ userSub:Subscription
     }
 
 
-getData(){
-  let empEmai= JSON.parse( localStorage.getItem("employee"));
-  this.unsub=this.service.getList('employees').pipe().subscribe((res:any)=>{
-    this.datas = res;
-    this.datas = this.datas.filter((empemail)=>empemail.email== empEmai.empem )[0]
 
-    console.log(this.datas)
-    })
-}
 
 updateData(item: string) {
   console.log(item);

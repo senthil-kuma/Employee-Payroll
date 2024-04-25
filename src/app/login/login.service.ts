@@ -27,11 +27,9 @@ export class LoginService {
    return new Observable<any> ((observable)=>{
 signInWithEmailAndPassword(this.auth, email, password)
   .then((userCredential) => {
-    // Signed in 
     const user = userCredential.user;
     observable.next(user)
     
-    // ...
   })
   .catch((error) => {
     observable.error(error)
@@ -75,7 +73,6 @@ signInWithEmailAndPassword(this.auth, email, password)
 
   logout():Observable<void> {
     return new Observable(observable =>{
-      // const auth = getAuth();
       signOut(this.auth).then(() => {
         observable.next();
         observable.complete()

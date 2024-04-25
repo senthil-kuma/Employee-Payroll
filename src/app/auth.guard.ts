@@ -13,7 +13,6 @@ export class AuthGuard {
     let userState= JSON.parse(localStorage.getItem('userState'))
     console.log(userState)
     if(userState) {
-     //let empData = JSON.parse(localStorage.getItem('employee'))
       return false;
     } else {
       return true;

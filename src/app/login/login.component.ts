@@ -51,7 +51,6 @@ export class LoginComponent {
                   }
                   console.log(data.role)
           })
-          // localStorage.setItem('employee', JSON.stringify(empData));
           this.logService.loggedInUserId = empData.empid;
           console.log(empData.empid)
           

@@ -17,7 +17,6 @@ export class EmployeeGuard {
     console.log(userState)
      console.log(admin)
      console.log(userState && !admin)
-     //userState && admin ?  this.router.navigate(['/employee']) : this.router.navigate(['/employee-list'])
       return userState && !admin;
    
   }
