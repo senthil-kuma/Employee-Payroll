@@ -10,7 +10,9 @@ import {
   setDoc,
   getDoc,
   getFirestore,
-  docData
+  docData,
+  updateDoc,
+  arrayRemove,
 } from '@angular/fire/firestore';
 import { Observable, throwError } from 'rxjs';
 
@@ -21,11 +23,11 @@ export class EmployeeService {
   loadedPosts: any;
 
   constructor(public http: HttpClient, private firestore: Firestore) {}
- 
 
-  get(path){
+  get(path) {
     let dataRef = doc(this.firestore, path);
-    return docData(dataRef);
+    return docData(dataRef)as Observable<any>;
+
   }
 
   getList(path) {
@@ -33,8 +35,9 @@ export class EmployeeService {
     return collectionData(dataRef, { idField: 'id' }) as Observable<any[]>;
   }
 
-  delete(path) {
-    let dataRef = doc(this.firestore, path);
+  delete() {
+    let path = `Skills/euf1BFJm4s4V39VH3wFY/skils/${0}` 
+    let dataRef = doc(this.firestore, path );
     return deleteDoc(dataRef);
   }
 
@@ -44,14 +47,32 @@ export class EmployeeService {
   }
 
   set(path, data) {
-    let dataRef = doc(this.firestore,path);
+    let dataRef = doc(this.firestore, path);
     return setDoc(dataRef, data);
   }
 
-
-  getDocumentById(id){
-   let  db= getFirestore();
-  let docRef=  doc(db,'employees',id);
-   return getDoc(docRef) ;
+  getDocumentById(id) {
+    let db = getFirestore();
+    let docRef = doc(db, 'employees', id);
+    return getDoc(docRef);
   }
+
+deleteSkill(val,coll,id){
+
+  let db=getFirestore()
+  const docRef = doc(db, coll, id);
+
+const valueToRemove = val;
+
+updateDoc(docRef, {
+  skils: arrayRemove(valueToRemove)
+})
+.then(() => {
+  console.log("Value has been removed successfully!");
+})
+.catch((error) => {
+  console.error("Error on removing value: ", error);
+});
+}
+
 }

@@ -1,0 +1,52 @@
+.input-btn {
+}
+
+.input {
+  width: calc(100% - 70px);
+}
+
+.input-button {
+  display: inline-block;
+  // width: 30px; 
+}
+
+.card {
+  height: 50px;
+  margin-top: 10px;
+
+  p {
+   
+    cursor: pointer;
+  }
+}
+
+.card:hover {
+  background-color: rgb(124, 85, 85);
+  color: rgb(243, 241, 238);
+}
+
+.card-style{
+  justify-content: center;
+  display: flex ;
+  height: 5px;
+  align-items: center;
+  p{
+    margin-top: 7px;
+    width:250px;
+    
+  }
+  
+}
+
+.btn-style{
+// margin-left: 100px;
+button{
+  height: 25px;
+  width: 25px;
+}
+}
+.fa-times{
+  position: relative;
+  bottom: 5px;
+  right: 6px;
+}

@@ -13,25 +13,25 @@ import { Subscription } from 'rxjs';
   styleUrl: './employee-list.component.scss',
 })
 export class EmployeeListComponent implements OnInit, OnDestroy {
+  searchtext = '';
   modalRef: MdbModalRef<AddEmployeeComponent> | null = null;
-  unsubscribe:Subscription
+  unsubscribe: Subscription;
   constructor(
     private modalService: MdbModalService,
     private service: EmployeeService,
     private fireStore: Firestore,
-private router:Router,
-private service1:LoginService  ) {}
+    private router: Router,
+    private service1: LoginService
+  ) {}
   datas: any = [];
   ngOnInit() {
     this.getdatas();
   }
 
   ngOnDestroy(): void {
-
-    if(this.unsubscribe){
+    if (this.unsubscribe) {
       this.unsubscribe.unsubscribe();
     }
-    
   }
 
   addEmployee() {
@@ -46,13 +46,10 @@ private service1:LoginService  ) {}
   }
 
   delete(item) {
-  
-        const dataRef = doc(this.fireStore, 'employees', item.id);
-        deleteDoc(dataRef).then(() => {
-          console.log('Record deleted successfully!');
-        });
-      
-    
+    const dataRef = doc(this.fireStore, 'employees', item.id);
+    deleteDoc(dataRef).then(() => {
+      console.log('Record deleted successfully!');
+    });
   }
 
   updateData(item: string) {
@@ -67,24 +64,22 @@ private service1:LoginService  ) {}
   }
 
   getdatas() {
-    
-    
-    this.unsubscribe=this.service.getList('employees').subscribe((res) => {
+    this.unsubscribe = this.service.getList('employees').subscribe((res) => {
       this.datas = res;
-      
-      this.datas = this.datas.filter(del => del.role !== "admin");
+
+      this.datas = this.datas.filter((del) => del.role !== 'admin');
       console.log(this.datas);
-    })
-    ;
+    });
   }
 
   onLogout() {
-    
-    this.service1.logout().subscribe({next:()=>{
+    this.service1.logout().subscribe({
+      next: () => {
         this.router.navigate(['login']);
-    }, error:(err)=>{
-      console.log(err)
-    }})
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
-  
 }

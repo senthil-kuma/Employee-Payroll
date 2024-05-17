@@ -3,18 +3,44 @@
     justify-content: center; /* Horizontally center the card */
     align-items: center; /* Vertically center the card */
     height: 100vh; /* Adjust the height of the container to the viewport height */
+    
   }
   
   .card {
     /* Add your card styles here */
-    width: 300px; /* Example width */
+    height :350px;
+    width: 250px; /* Example width */
     padding: 20px; /* Example padding */
     border: 1px solid #ccc; /* Example border */
     border-radius: 8px; /* Example border radius */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Example box shadow */
+    color: #09582a;
+    background-color:#71e3a1;
+    border-radius: 20px;
+    border-color:goldenrod;
   }
-  
+    .bg-color{
+  //  background: linear-gradient(to right, #dfebf2,#d6e8de);
+}
 
-  .bg-color{
-    background: linear-gradient(to right, #3498db,#2ecc71);
+.img-align{
+  align-self: center ;
+}
+
+h5{
+  font-family: math;
+
+}
+
+.btns{
+  border-radius: 30px;
+  inline-size: 125px;
+  width: 150px;
+  color: maroon;
+}
+
+.form-label{
+  font-family: math;
+  font-size: 20px;
+
 }

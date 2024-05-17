@@ -1,0 +1,32 @@
+<div class="mt-5 ms-3" style="min-height: 619px;">
+    <h4 class="">Employee Skills</h4>
+<div class="input-btn">
+    <input class="input" type="text" [(ngModel)]="textBoxValue" placeholder="Enter skill">
+    <button class="input-button btn btn-sm btn-info mt-2 ms-2" (click)="addSkill(textBoxValue)">Add</button>
+    </div>
+    <!-- <ul>
+        <li *ngFor="let item of empSkills">{{ item }}</li>
+    </ul> -->
+@for (item of empSkills; track item; let i = $index;) {
+   
+
+0
+    <div class="card ">
+        
+        <div class="card-body">
+            <div class="card-style">
+            
+          <p>{{item}}</p>
+          <div class="btn-style">
+          <button type="button" class="btn btn-danger btn-floating " (click)="deleteSkill(item)" mdbRipple>
+            <div><i class="fas fa-times"></i></div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+}
+
+</div>

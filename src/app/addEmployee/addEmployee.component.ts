@@ -7,7 +7,6 @@ import { EmployeeService } from '../Service/employee.service';
 import { NgForm } from '@angular/forms';
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 
-
 @Component({
   selector: 'app-auth',
   templateUrl: './addEmployee.component.html',
@@ -17,7 +16,7 @@ export class AddEmployeeComponent implements AfterViewInit {
   error1: string = 'invalid credentials';
   items: any = {};
   title: any = '';
-  data:any;
+  data: any;
   isLoading = false;
   error: string = null;
 
@@ -28,7 +27,7 @@ export class AddEmployeeComponent implements AfterViewInit {
     private http: HttpClient,
     private loginService: LoginService,
     private fireStore: Firestore,
-    private eService: EmployeeService,
+    private eService: EmployeeService
   ) {}
   ngAfterViewInit(): void {
     console.log(this.items);
@@ -44,13 +43,12 @@ export class AddEmployeeComponent implements AfterViewInit {
           depart: this.items.depart,
           dest: this.items.dest,
           place: this.items.place,
-          pos:this.items.pos,
-         role:this.items.role,
-        img:''
+          pos: this.items.pos,
+          role: this.items.role,
+          img: '',
         });
-
-        this.url=this.items.image;
-
+        console.log(this.items.img);
+        this.url = this.items.image;
       }, 500);
     }
   }
@@ -58,7 +56,7 @@ export class AddEmployeeComponent implements AfterViewInit {
   email: any;
   createPost(f) {
     let formdata = f.value;
-    formdata["image"] = this.url;
+    formdata['image'] = this.url;
 
     if (this.items?.id?.length) {
       const docInstance = doc(this.fireStore, 'employees', this.items.id);
@@ -66,7 +64,6 @@ export class AddEmployeeComponent implements AfterViewInit {
         .then(() => {
           console.log('data updated');
           this.modalRef.close();
-        
         })
         .catch((err) => {
           console.log(err);
@@ -80,24 +77,25 @@ export class AddEmployeeComponent implements AfterViewInit {
         .then((userCredential) => {
           // Signed up
           const user: any = userCredential['_tokenResponse'];
-          formdata["image"] = this.url;
+          formdata['image'] = this.url;
           console.log(user);
           console.log(userCredential);
           console.log(formdata);
 
-          let id =userCredential.user.uid;
-          formdata["id"]=id;
+          let id = userCredential.user.uid;
+          formdata['id'] = id;
 
-          this.eService.set(`employees/${id}`, formdata).then(() => {
-            console.log('Data has been saved successfully');
-           
-            this.modalRef.close();
-            f.reset();
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-            
+          this.eService
+            .set(`employees/${id}`, formdata)
+            .then(() => {
+              console.log('Data has been saved successfully');
+
+              this.modalRef.close();
+              f.reset();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -108,22 +106,24 @@ export class AddEmployeeComponent implements AfterViewInit {
 
     console.log(f.value);
   }
-
-  url:any = "../../assets/Images/profile.png";
+  url: any = '../../assets/Images/profile.png';
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
 
-      reader.readAsDataURL(event.target.files[0]); 
+
+      reader.readAsDataURL(event.target.files[0]);
 
       console.log(event.target.files[0].name);
 
-
-      reader.onload = (event) => { 
+      reader.onload = (event) => {
         this.url = event.target.result;
-        this.data=this.url;
-      }
-
+        this.data = this.url;
+      };
     }
+  }
+
+  choosefile(fileLoader: any) {
+    fileLoader.click();
   }
 }

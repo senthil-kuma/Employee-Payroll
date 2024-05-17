@@ -10,24 +10,20 @@ import { Auth } from '@angular/fire/auth';
 })
 export class AppComponent implements OnInit {
   title = 'employee-payroll';
-  isuserLogin:boolean= false;
-  constructor(private serve : LoginService,private auth:Auth){
-  }
+  isuserLogin: boolean = false;
+  constructor(private serve: LoginService, private auth: Auth) {}
 
   ngOnInit(): void {
-   
-       onAuthStateChanged(this.auth, (user) => {
-         if (user) {
-           console.log(user.email + ' user loged in');
-           this.isuserLogin = true;
-         } else {
-           console.log('user logout');
-           localStorage.removeItem('employee')
-           this.isuserLogin = false
-         }
-         localStorage.setItem('userState', JSON.stringify(this.isuserLogin))
-       });
-      
-      
+    onAuthStateChanged(this.auth, (user) => {
+      if (user) {
+        console.log(user.email + ' user loged in');
+        this.isuserLogin = true;
+      } else {
+        console.log('user logout');
+        localStorage.removeItem('employee');
+        this.isuserLogin = false;
+      }
+      localStorage.setItem('userState', JSON.stringify(this.isuserLogin));
+    });
   }
 }
